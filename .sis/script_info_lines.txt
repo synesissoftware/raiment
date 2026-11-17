@@ -1,0 +1,2 @@
+raiment is a scaffold for application-level scope helpers for Rust
+Copyright (c) 2026, Matthew Wilson and Synesis Information Systems
