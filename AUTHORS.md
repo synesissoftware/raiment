@@ -3,8 +3,8 @@
 
 ## Major Contributors
 
-| Name        | GitHub                            |
-| ----------- | --------------------------------- |
+| Name | GitHub |
+| ---- | ------ |
 | Matt Wilson | [mwsis](https://github.com/mwsis) |
 
 

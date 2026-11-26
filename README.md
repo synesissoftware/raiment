@@ -7,6 +7,7 @@ Application-level helpers influenced by C-family scope techniques, for Rust.
 [![GitHub release](https://img.shields.io/github/v/release/synesissoftware/raiment.svg)](https://github.com/synesissoftware/raiment/releases/latest)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/raiment)](https://github.com/synesissoftware/raiment/commits/master)
 ![MSRV](https://img.shields.io/badge/MSRV-1.74-lightgrey)
+[![CI](https://github.com/synesissoftware/raiment/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/raiment/actions/workflows/ci.yml)
 [![docs.rs](https://docs.rs/raiment/badge.svg)](https://docs.rs/raiment)
 
 
@@ -33,15 +34,13 @@ Application-level helpers influenced by C-family scope techniques, for Rust.
 
 ## Introduction
 
-**raiment** is reserved for application-level helpers influenced by C-family scope techniques (such as RAII guards). This repository is that Rust crate.
+**raiment** is application-level helpers influenced by C-family scope techniques (such as RAII guards), for Rust. The library is `no_std` and depends only on `core`.
 
-No helpers are landed. The public surface is intentionally empty.
+The first helper is a block-scoped cleanup guard. `on_drop!` runs a closure when its binding leaves the enclosing block, including on unwind. The design follows **STLSoft**'s `scoped_lambda`, and is related to `scoped_handle<>`.
 
 
 
 ## Developer Experience
-
-This crate is a scaffold. There is no sample call, because there is no public API.
 
 Rust **1.74** or newer is required. From the repository root:
 
@@ -49,7 +48,23 @@ Rust **1.74** or newer is required. From the repository root:
 cargo test
 ```
 
-`cargo test` builds the empty library and runs no tests. Further reading: [**CHANGES.md**](./CHANGES.md) and [**TODO.md**](./TODO.md).
+The simplest use is `on_drop!`: a block, a guard, a later statement, then the proof that the closure has run.
+
+```rust
+let ran = std::cell::Cell::new(false);
+
+{
+    raiment::on_drop! {
+        ran.set(true);
+    }
+
+    assert!(!ran.get());
+}
+
+assert!(ran.get());
+```
+
+Further reading: [**EXAMPLES.md**](./EXAMPLES.md), [**CHANGES.md**](./CHANGES.md), and [**TODO.md**](./TODO.md).
 
 
 
@@ -58,20 +73,23 @@ cargo test
 Reference in **Cargo.toml** in the usual way:
 
 ```toml
-raiment = { version = "0.0.0" }
+raiment = { version = "0.0.1" }
 ```
 
 
 
 ## Components
 
-No public constants, types, functions, traits, macros, or modules are defined.
+* `on_drop` — builds a named guard;
+* `on_drop!` — binds a guard for the enclosing block;
+* `OnDropGuard` — the guard type;
+* `OnDropGuard::defuse` — drops a named guard without running the closure;
 
 
 
 ## Examples
 
-No examples apply. There is no supported public API.
+See [**EXAMPLES.md**](./EXAMPLES.md). The **on_drop** program is [examples/on_drop.rs](./examples/on_drop.rs).
 
 
 
@@ -81,13 +99,13 @@ No examples apply. There is no supported public API.
 
 ### Where to get help
 
-Use the [raiment issue tracker](https://github.com/synesissoftware/raiment/issues) for questions about the scaffold.
+Use the [raiment issue tracker](https://github.com/synesissoftware/raiment/issues).
 
 
 
 ### Contribution guidelines
 
-Contributions should stay limited to the scaffold, documentation, and packaging until a later task adds a supported public API.
+Contributions should follow the documented public API (`on_drop`, `on_drop!`, and `OnDropGuard::defuse`) and the crate's packaging constraints.
 
 
 
@@ -95,7 +113,7 @@ Contributions should stay limited to the scaffold, documentation, and packaging 
 
 The declared Minimum Supported Rust Version (MSRV) for **raiment** is **1.74**.
 
-This MSRV applies to the library crate itself. The scaffold declares no runtime or build dependencies.
+This MSRV applies to the library crate itself. The library is `no_std` and declares no runtime or build dependencies.
 
 
 
@@ -135,7 +153,7 @@ No downstream consumers are recorded.
 
 ### Related projects
 
-No related Rust implementation is recorded. The crate is a placeholder for later scope helpers.
+The design follows **STLSoft**'s `scoped_lambda`, and is related to `scoped_handle<>`. No related Rust implementation is recorded.
 
 
 
