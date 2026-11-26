@@ -10,9 +10,9 @@
 
 ## Functional improvements
 
-* [ ] Add application-level scope helpers in a later implementation task;
-* [ ] Add behavioural tests only after supported public behaviour exists;
-* [ ] Add maintained examples and **EXAMPLES.md** only after the API exists;
+* [x] ~~~Add application-level scope helpers in a later implementation task~~~ - ✅;
+* [x] ~~~Add behavioural tests only after supported public behaviour exists~~~ - ✅;
+* [x] ~~~Add maintained examples and **EXAMPLES.md** only after the API exists~~~ - ✅;
 
 
 ## Performance improvements
@@ -23,7 +23,7 @@
 ## Packaging improvements
 
 * [x] ~~~Reassess `publish = false` after a supported public API exists~~~ - ✅;
-* [ ] Add GitHub Actions CI once a shared Rust workflow is chosen;
+* [x] ~~~Add GitHub Actions CI once a shared Rust workflow is chosen~~~ - ✅;
 
 
 <!-- ########################### end of file ########################### -->

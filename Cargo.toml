@@ -9,6 +9,8 @@ authors = [
 ]
 categories = [
 	"development-tools",
+	"no-std",
+	"no-std::no-alloc",
 ]
 description = "Application-level helpers influenced by C-family scope techniques (for Rust)"
 documentation = "https://docs.rs/raiment"
@@ -24,6 +26,7 @@ exclude = [
 ]
 homepage = "https://github.com/synesissoftware/raiment"
 keywords = [
+	"no-std",
 	"raii",
 	"scope",
 ]
@@ -33,7 +36,7 @@ publish = true
 readme = "README.md"
 repository = "https://github.com/synesissoftware/raiment"
 rust-version = "1.74"
-version = "0.0.0"
+version = "0.0.1"
 
 
 # ##########################################################
